@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Proyect } from 'src/models/proyect.model';
 import { FirebaseService } from 'src/services/firebase.service';
-import 'bootstrap';
 
 @Component({
   selector: 'app-root',

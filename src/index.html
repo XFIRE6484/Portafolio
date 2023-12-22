@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
@@ -7,21 +7,8 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script>
-    (function () {
-      const n = window, i = document, o = i.getElementsByTagName("script")[0], t = i.createElement("script");
-      (t.src = "https://js.appetize.io/embed.js"), (t.async = 1), o.parentNode.insertBefore(t, o);
-      const s = new Promise(function (e) { t.onload = function () { e(); }; }); n.appetize = {
-        getClient: function (...e) {
-          return s.then(() => n.appetize.getClient(...e));
-        },
-      };
-    })();
-  </script>
 </head>
-
 <body>
   <app-root></app-root>
 </body>
-
 </html>

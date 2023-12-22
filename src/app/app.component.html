@@ -3,27 +3,17 @@
 
 </div>
 
-<div class="container text-center pt-4">
-
-  <div class="row row-cols-1 row-cols-md-2 g-4">
+<div class="container-fluid text-center p-4">
+  <div class="row row-cols-1 row-cols-md-2 row-gap-3 justify-content-evenly" >
     <div class="col" *ngFor="let proyect of proyects;let i = index">
-      <div class="card">
-        <div [id]="i + '-carousel'" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item " *ngFor="let img of proyect.img; let t = index" [class.active]="t === 0">
-              <img src='{{ img }}' class="w-auto text-center" style="height:300px;" id="a{{t}}" alt="image">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#' + i + '-carousel'" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#' + i + '-carousel'" data-bs-slide="next">
-            <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-        <div class="card-body">
+      <div class="card h-100">
+        <ngb-carousel [id]="'carousel'+i" [interval]="10000" data-bs-theme="dark">
+          <ng-template ngbSlide *ngFor="let img of proyect.img;" >
+            <img [src]="img" alt="" class="w-auto img-thumbnail"  onclick="this.requestFullscreen()" style="max-height: 420px;min-height: 420px;" />
+          </ng-template>
+        </ngb-carousel>
+
+         <div class="card-body">
           <h6 class="card-title">{{ proyect.title }}</h6>
           <a *ngIf="proyect.type === 'app'; else webLink" class="btn btn-primary" (click)="openIframe(proyect.url)">
             Ver Aplicacion
@@ -38,28 +28,6 @@
     </div>
   </div>
 </div>
-<!-- <div class="modal-lg fade" id="iframe_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="iframe_modal" aria-hidden="true">
-  <div class="modal-dialog ">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <iframe
-        id="appetize"
-        width="600px" 
-        height="800px" 
-        frameborder="0" 
-        scrolling="no"></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>  -->
 <router-outlet>
 
 </router-outlet>
