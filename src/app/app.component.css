@@ -1,0 +1,9 @@
+.sliderImage {
+    cursor: zoom-in;
+    max-height: 40vh;
+}
+
+.sliderImage-fullscreen {
+    cursor: zoom-out;
+    max-height: 100vh;
+}
