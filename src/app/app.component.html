@@ -1,30 +1,69 @@
-<!-- Toolbar -->
-<div class="toolbar" role="banner">
-
-</div>
-
-<div class="container-fluid text-center p-4">
+<nav class="navbar sticky-top navbar-expand-lg bg-primary bg-gradient bg-opacity-75" style="padding:inherit ;">
+  <div id="navBarContainer" class="ps-2">
+    <div class="navbar-brand ">
+      <a class="h5 text-white mx-auto text-center" style="width: max-content;height: max-content;" href="#"><img
+          src="assets/icons/portfolio_logo.png" class="img-thumbnail" alt="Website Logo"></a>
+    </div>
+    <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0"> bg-light
+      <li class="nav-item">
+        <a class="nav-link" href="#">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Team</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Projects</a>
+      </li>
+    </ul> -->
+  </div>
+  <div class="navbar-nav pe-2">
+    <a class="btn btn-light" href="https://github.com/XFIRE6484" target="_blank" role="button">
+      <img class="img-fluid" style="width: 25px;" src="assets/icons/github.svg" alt="Github Repo Link">
+    </a>
+  </div>
+</nav>
+<!--bg-info bg-opacity-75  -->
+<div class="container-fluid text-center p-4 ">
   <div class="row row-cols-1 row-cols-md-2 row-gap-3 justify-content-evenly">
     <div class="col" *ngFor="let proyect of proyects;let i = index">
-      <!-- style="max-height:70vh;min-height:40vh" -->
-      <div class="card " style="height: 50vh;">
-        <ngb-carousel #carouselElement [id]="'carousel'+i" [interval]="10000" data-bs-theme="dark">
+      <div class="card border-secondary h-100">
+        <ngb-carousel #carouselElement [id]="'carousel'+i" [interval]="10000" [pauseOnHover]="pauseOnHover"
+          (slide)="onSlide($event,carouselElement)">
           <ng-template ngbSlide *ngFor="let img of proyect.img;">
             <img [src]="img" #imageElement [id]="'slider'+proyect.title+i" (click)="requestFullscreen(imageElement, i)"
               class="sliderImage" alt="" />
           </ng-template>
         </ngb-carousel>
-
+        <hr class="mx-3" />
         <div class="card-body">
-          <h6 class="card-title">{{ proyect.title }}</h6>
-          <a *ngIf="proyect.type === 'app'; else webLink" class="btn btn-primary" (click)="openIframe(proyect.url)">
-            Ver Aplicacion
-          </a>
+          <h6 class="card-title fs-5">{{ proyect.title }}</h6>
+          <p *ngIf="proyect.description !== undefined" class="card-text text-start">{{ proyect.description }}</p>
+          <ng-container *ngIf="proyect.type === 'app'; else webLink">
+            <a class="btn btn-primary" [class.disabled]="!proyect.url" (click)="openIframe(proyect.url)">
+              Ver Aplicación
+            </a>
+          </ng-container>
+
           <ng-template #webLink>
-            <a href="{{ proyect.url}}" target="_blank" class="btn btn-primary">
-              Ver WebSite
+            <a href="{{ proyect.url }}" target="_blank" class="btn btn-primary" [class.disabled]="!proyect.url">
+              Ver Website
             </a>
           </ng-template>
+        </div>
+        <!-- <div *ngIf="proyect.startDate !== undefined || proyect.endDate !== undefined"
+          class="card-footer text-muted d-inline">
+          {{ proyect.startDate.toDate().toLocaleDateString() }} - {{
+          proyect.endDate.toDate().toLocaleDateString() }}
+        </div> -->
+        <div *ngIf="proyect.startDate !== undefined || proyect.endDate !== undefined" class="card-footer text-muted">
+          <p>
+            <ng-container *ngIf="proyect.startDate !== undefined">{{ proyect.startDate.toDate().toLocaleDateString()
+              }}</ng-container>
+            -
+            <ng-container *ngIf="proyect.endDate !== undefined; else today">{{
+              proyect.endDate.toDate().toLocaleDateString() }}</ng-container>
+            <ng-template #today>En Desarrollo</ng-template>
+          </p>
         </div>
       </div>
     </div>
