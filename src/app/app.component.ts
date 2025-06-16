@@ -2,12 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Proyect } from 'src/models/proyect.model';
 import { FirebaseService } from 'src/services/firebase.service';
 
-import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router'; // Import RouterModule
+import { CommonModule } from '@angular/common'; // Import CommonModule
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  standalone: true, // Make sure this is true if it's a standalone component
+  imports: [
+    CommonModule,
+    RouterModule, // Add RouterModule here
+    NgbCarouselModule // Add NgbCarouselModule here as it's used in the template
+  ]
 })
 export class AppComponent implements OnInit
 {
@@ -31,8 +39,7 @@ export class AppComponent implements OnInit
         {
           img.classList.add('sliderImage');
           img.classList.remove('sliderImage-fullscreen');
-        }
-        );
+        });
       }
     });
   }
@@ -47,7 +54,7 @@ export class AppComponent implements OnInit
   }
   async openIframe(url: string)
   {
-    const iframe = `<iframe src="${url}" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>`;
+    const iframe = `<iframe src=\"${url}\" width=\"100%\" height=\"100%\" frameborder=\"0\" scrolling=\"no\"></iframe>`;
     const newTab = window.open('', '_blank') as Window;
     newTab.document.body.innerHTML = iframe;
     //const client = await window.appetize.getClient("#appetize");
@@ -65,8 +72,7 @@ export class AppComponent implements OnInit
         {
           img.classList.add('sliderImage');
           img.classList.remove('sliderImage-fullscreen');
-        }
-        );
+        });
       } else
       {
         carousel.requestFullscreen();
@@ -74,8 +80,7 @@ export class AppComponent implements OnInit
         {
           img.classList.add('sliderImage-fullscreen');
           img.classList.remove('sliderImage');
-        }
-        );
+        });
       }
     }
   }

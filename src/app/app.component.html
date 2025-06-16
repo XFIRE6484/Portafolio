@@ -2,19 +2,8 @@
   <div id="navBarContainer" class="ps-2">
     <div class="navbar-brand ">
       <a class="h5 text-white mx-auto text-center" style="width: max-content;height: max-content;" href="#"><img
-          src="assets/icons/portfolio_logo.png" class="img-thumbnail" alt="Website Logo"></a>
+          src="assets/icons/portfolio_logo.png" alt="Website Logo"></a>
     </div>
-    <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0"> bg-light
-      <li class="nav-item">
-        <a class="nav-link" href="#">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Team</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Projects</a>
-      </li>
-    </ul> -->
   </div>
   <div class="navbar-nav pe-2">
     <a class="btn btn-light" href="https://github.com/XFIRE6484" target="_blank" role="button">
@@ -31,13 +20,17 @@
           (slide)="onSlide($event,carouselElement)">
           <ng-template ngbSlide *ngFor="let img of proyect.img;">
             <img [src]="img" #imageElement [id]="'slider'+proyect.title+i" (click)="requestFullscreen(imageElement, i)"
-              class="sliderImage" alt="" />
+              class="sliderImage" alt="{{ proyect.title }} image" />
           </ng-template>
         </ngb-carousel>
         <hr class="mx-3" />
         <div class="card-body">
           <h6 class="card-title fs-5">{{ proyect.title }}</h6>
-          <p *ngIf="proyect.description !== undefined" class="card-text text-start">{{ proyect.description }}</p>
+          <p *ngIf="proyect.description !== undefined; else noDescription" class="card-text text-start">{{
+            proyect.description }}</p>
+          <ng-template #noDescription>
+            <p class="card-text text-start text-muted">No description available.</p>
+          </ng-template>
           <ng-container *ngIf="proyect.type === 'app'; else webLink">
             <a class="btn btn-primary" [class.disabled]="!proyect.url" (click)="openIframe(proyect.url)">
               Ver Aplicación
@@ -58,8 +51,7 @@
         <div *ngIf="proyect.startDate !== undefined || proyect.endDate !== undefined" class="card-footer text-muted">
           <p>
             <ng-container *ngIf="proyect.startDate !== undefined">{{ proyect.startDate.toDate().toLocaleDateString()
-              }}</ng-container>
-            -
+              }}</ng-container> -
             <ng-container *ngIf="proyect.endDate !== undefined; else today">{{
               proyect.endDate.toDate().toLocaleDateString() }}</ng-container>
             <ng-template #today>En Desarrollo</ng-template>
@@ -70,5 +62,4 @@
   </div>
 </div>
 <router-outlet>
-
 </router-outlet>
