@@ -1,12 +1,12 @@
-<nav class="navbar sticky-top navbar-expand-lg bg-primary bg-gradient bg-opacity-75" style="padding:inherit ;">
+<nav class="navbar sticky-top navbar-expand-lg bg-primary bg-gradient bg-opacity-75 py-2 px-3">
   <div id="navBarContainer" class="ps-2">
-    <div class="navbar-brand ">
-      <a class="h5 text-white mx-auto text-center" style="width: max-content;height: max-content;" href="#"><img
-          src="assets/icons/portfolio_logo.png" alt="Website Logo"></a>
+    <div class="navbar-brand d-flex align-items-center">
+      <a class="h5 text-white mx-auto text-center" href="#"><div class="d-flex align-items-center"><img
+          src="assets/icons/portfolio_logo.png" alt="Website Logo" class="img-fluid" style="max-height:40px"></div></a>
     </div>
   </div>
   <div class="navbar-nav pe-2">
-    <a class="btn btn-light" href="https://github.com/XFIRE6484" target="_blank" role="button">
+    <a class="btn btn-light" href="https://github.com/XFIRE6484" target="_blank" role="button" title="View GitHub Profile">
       <img class="img-fluid" style="width: 25px;" src="assets/icons/github.svg" alt="Github Repo Link">
     </a>
   </div>
@@ -15,7 +15,7 @@
 <div class="container-fluid text-center p-4 ">
   <div class="row row-cols-1 row-cols-md-2 row-gap-3 justify-content-evenly">
     <div class="col" *ngFor="let proyect of proyects;let i = index">
-      <div class="card border-secondary h-100">
+      <div class="card border-secondary h-100 shadow-sm">
         <ngb-carousel #carouselElement [id]="'carousel'+i" [interval]="10000" [pauseOnHover]="pauseOnHover"
           (slide)="onSlide($event,carouselElement)">
           <ng-template ngbSlide *ngFor="let img of proyect.img;">
@@ -23,22 +23,22 @@
               class="sliderImage" alt="{{ proyect.title }} image" />
           </ng-template>
         </ngb-carousel>
-        <hr class="mx-3" />
+        <hr class="mx-3 mb-3" />
         <div class="card-body">
-          <h6 class="card-title fs-5">{{ proyect.title }}</h6>
+          <h6 class="card-title fs-5 fw-bold text-center">{{ proyect.title }}</h6>
           <p *ngIf="proyect.description !== undefined; else noDescription" class="card-text text-start">{{
             proyect.description }}</p>
           <ng-template #noDescription>
-            <p class="card-text text-start text-muted">No description available.</p>
+            <p class="card-text text-start text-muted small">No description available.</p>
           </ng-template>
           <ng-container *ngIf="proyect.type === 'app'; else webLink">
-            <a class="btn btn-primary" [class.disabled]="!proyect.url" (click)="openIframe(proyect.url)">
+            <a class="btn btn-primary btn-sm mt-2" [class.disabled]="!proyect.url" (click)="openIframe(proyect.url)">
               Ver Aplicación
             </a>
           </ng-container>
 
           <ng-template #webLink>
-            <a href="{{ proyect.url }}" target="_blank" class="btn btn-primary" [class.disabled]="!proyect.url">
+            <a href="{{ proyect.url }}" target="_blank" class="btn btn-primary btn-sm mt-2" [class.disabled]="!proyect.url">
               Ver Website
             </a>
           </ng-template>
@@ -48,7 +48,7 @@
           {{ proyect.startDate.toDate().toLocaleDateString() }} - {{
           proyect.endDate.toDate().toLocaleDateString() }}
         </div> -->
-        <div *ngIf="proyect.startDate !== undefined || proyect.endDate !== undefined" class="card-footer text-muted">
+        <div *ngIf="proyect.startDate !== undefined || proyect.endDate !== undefined" class="card-footer text-muted small text-center">
           <p>
             <ng-container *ngIf="proyect.startDate !== undefined">{{ proyect.startDate.toDate().toLocaleDateString()
               }}</ng-container> -
